@@ -1,12 +1,17 @@
 import { Module } from "@nestjs/common";
-import { PrismaService } from "./prisma.service";
 import { ConfigModule } from "@nestjs/config";
-import { AuthModule } from './auth/auth.module';
-import { UsersModule } from './users/users.module';
+import { UsersModule } from "./users/users.module";
+import { AuthModule } from "./auth/auth.module";
 import config from "./common/config/config";
+import { PrismaModule } from "./prisma/prisma.module";
+import { PassportModule } from "@nestjs/passport";
 
 @Module({
   imports: [
+    PrismaModule,
+    PassportModule.register({
+      defaultStrategy: "jwt",
+    }),
     ConfigModule.forRoot({
       isGlobal: true,
       load: [config],
@@ -15,7 +20,7 @@ import config from "./common/config/config";
     UsersModule,
   ],
   controllers: [],
-  providers: [PrismaService],
-  exports: [PrismaService],
+  providers: [],
+  exports: [],
 })
 export class AppModule {}
