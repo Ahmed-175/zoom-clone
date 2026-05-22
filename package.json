@@ -1,4 +1,7 @@
 {
+  "dependencies": {
+    "@nestjs/mapped-types": "*"
+  },
   "name": "Zoom-Clone",
   "private": true,
   "scripts": {

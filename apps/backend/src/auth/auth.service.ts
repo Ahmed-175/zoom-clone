@@ -30,20 +30,20 @@ export class AuthService {
 
   async register(dto: RegisterDto) {
     const user = await this.usersService.create(dto);
-    const accessToken = this.generateToken(user.id);
+    const access_token = this.generateToken(user.id);
     return {
       user,
-      accessToken,
+      access_token,
     };
   }
 
   async login(dto : LoginDto){
     const user = await this.usersService.validateUser(dto); 
-    const accessToken = this.generateToken(user.id);
+    const access_token = this.generateToken(user.id);
 
     return {
       user , 
-      accessToken
+      access_token
     }
   }
 }
