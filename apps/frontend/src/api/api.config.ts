@@ -1,7 +1,5 @@
 import axios from "axios";
 
-console.log(import.meta.env.VITE_URL_BACKEND);
-
 const axiosAnsence = axios.create({
   baseURL: import.meta.env.VITE_URL_BACKEND,
 });

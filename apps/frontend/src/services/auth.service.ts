@@ -1,5 +1,6 @@
 import axiosAnsence from "../api/api.config";
 import { endpoints } from "../api/endpoints";
+import type { IUser } from "../types/user.type";
 
 export const login = async (data: {
   email: string;
@@ -19,3 +20,9 @@ export const register = async (data: {
 
   return response.data.access_token;
 };
+
+
+export const me = async() : Promise<IUser> =>{
+  const res = await axiosAnsence.get(endpoints.auth.me);
+  return res.data
+}

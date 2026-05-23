@@ -1,8 +1,23 @@
-import { Module } from '@nestjs/common';
-import { PresenceService } from './presence.service';
-import { PresenceGateway } from './presence.gateway';
+import { Module } from "@nestjs/common";
+import { PresenceService } from "./presence.service";
+import { PresenceGateway } from "./presence.gateway";
+import { JwtModule } from "@nestjs/jwt";
+import { ConfigModule, ConfigService } from "@nestjs/config";
 
 @Module({
+  imports: [
+    JwtModule.registerAsync({
+      imports: [ConfigModule],
+      inject: [ConfigService],
+      useFactory: (configService: ConfigService) => ({
+        secret: configService.get<string>("JWT_SECRET"),
+        signOptions: {
+          expiresIn: "7d",
+        },
+      }),
+    }),
+  ],
   providers: [PresenceGateway, PresenceService],
+  exports: [PresenceService],
 })
 export class PresenceModule {}

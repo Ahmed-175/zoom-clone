@@ -7,21 +7,12 @@ import { PrismaModule } from "./prisma/prisma.module";
 import { PassportModule } from "@nestjs/passport";
 import { ChatModule } from "./chat/chat.module";
 import { PresenceModule } from "./presence/presence.module";
-import { AppGateway } from "./gateways/app.gateway";
 import { JwtModule } from "@nestjs/jwt";
+import { PresenceService } from "./presence/presence.service";
 
 @Module({
   imports: [
-    JwtModule.registerAsync({
-      imports: [ConfigModule],
-      inject: [ConfigService],
-      useFactory: (configService: ConfigService) => ({
-        secret: configService.get<string>("JWT_SECRET"),
-        signOptions: {
-          expiresIn: "7d",
-        },
-      }),
-    }),
+
     PrismaModule,
     PassportModule.register({
       defaultStrategy: "jwt",
@@ -36,7 +27,7 @@ import { JwtModule } from "@nestjs/jwt";
     PresenceModule,
   ],
   controllers: [],
-  providers: [AppGateway],
+  providers: [],
   exports: [],
 })
 export class AppModule {}

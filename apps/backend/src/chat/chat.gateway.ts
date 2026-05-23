@@ -10,7 +10,12 @@ import { ChatService } from "./chat.service";
 
 import { Server, Socket } from "socket.io";
 
-@WebSocketGateway()
+@WebSocketGateway({
+  cors: {
+    origin: "*",
+    credentials: true,
+  },
+})
 export class ChatGateway {
   constructor(private readonly chatService: ChatService) {}
 
@@ -23,11 +28,6 @@ export class ChatGateway {
     @MessageBody() body: any,
   ) {
     const user = client.data.user;
-
-    console.log(user);
-
-    console.log(body);
-
     this.server.to(body.roomId).emit("receive_message", body.message);
   }
 

@@ -13,7 +13,7 @@ const Register = () => {
     email: "",
     password: "",
   });
-  
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
 
@@ -56,12 +56,6 @@ const Register = () => {
         Account
       </h1>
 
-      <img
-        src={"./zoom_2.webp"}
-        alt="icon"
-        className="w-15 h-15 object-cover absolute right-10 top-20 rotate-45"
-      />
-
       <div className="h-fit min-h-50 p-10 md:p-14 w-140 text-center absolute left-5 bottom-15">
         <h1 className="text-2xl font-bold mb-5">Register Page</h1>
 
@@ -74,7 +68,7 @@ const Register = () => {
             value={form.username}
             onChange={handleChange}
             placeholder="John Doe..."
-            className="block w-full bg-gray-100 rounded-lg p-2 outline-none"
+            className="block w-full  bg-gray-100 rounded-lg p-2 outline-none"
           />
         </div>
 

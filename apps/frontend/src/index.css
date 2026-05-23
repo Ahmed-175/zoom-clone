@@ -1,8 +1,16 @@
-@import url('https://fonts.googleapis.com/css2?family=Michroma&family=Saira:ital,wght@0,100..900;1,100..900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Michroma&family=Saira:ital,wght@0,100..900;1,100..900&display=swap");
 @import "tailwindcss";
 
 * {
-    /* font-family: "Saira", sans-serif; */
-    font-family: "Michroma", sans-serif;
+  /* font-family: "Saira", sans-serif; */
+  font-family: "Michroma", sans-serif;
+  color: #fff;
 }
 
+body {
+  background-color: #000;
+}
+
+input {
+  color: #000;
+}
