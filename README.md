@@ -8,7 +8,7 @@ A production-grade, real-time communications application featuring WebRTC video/
 
 Follow these steps to set up and run the project locally on your machine.
 
-### 📋 Prerequisites
+###  Prerequisites
 Ensure you have the following installed:
 * [Node.js](https://nodejs.org/) (Version `>= 18.x`)
 * [Docker Desktop](https://www.docker.com/products/docker-desktop/) (for PostgreSQL)
