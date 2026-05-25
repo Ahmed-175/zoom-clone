@@ -10,6 +10,8 @@ const ClockHome = () => {
     const { user, loading } = useAuth();
     const { activeUsers } = useSocket();
 
+    console.log(user);
+
     if (loading) {
         return <div>Loading...</div>
     }
@@ -40,7 +42,7 @@ const ClockHome = () => {
                             <Picture user={user} size="xl" />
                             <div>
                                 <div className=" font-bold text-sm">{user.username}</div>
-                                <div className="text-xs text-gray-600">{user.email}</div>
+                                <div className="text-xs text-gray-200">{user.email}</div>
                             </div>
                         </div>
                     </div>
@@ -48,11 +50,11 @@ const ClockHome = () => {
             }
 
             <div className=' absolute z-20 flex justify-center 
-            items-center right-5 text-sm gap-4  bottom-5'>
+            items-center right-5 text-sm gap-4 text-white bottom-5'>
                 <div>
                     Active Users {activeUsers.length}
                 </div>
-                <FaUsers className='text-3xl' />
+                <FaUsers className='text-2xl' />
             </div>
 
         </div>

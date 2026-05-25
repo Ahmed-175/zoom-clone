@@ -7,12 +7,10 @@ import { PrismaModule } from "./prisma/prisma.module";
 import { PassportModule } from "@nestjs/passport";
 import { ChatModule } from "./chat/chat.module";
 import { PresenceModule } from "./presence/presence.module";
-import { JwtModule } from "@nestjs/jwt";
-import { PresenceService } from "./presence/presence.service";
+import { MeetingsModule } from "./meetings/meetings.module";
 
 @Module({
   imports: [
-
     PrismaModule,
     PassportModule.register({
       defaultStrategy: "jwt",
@@ -25,6 +23,7 @@ import { PresenceService } from "./presence/presence.service";
     UsersModule,
     ChatModule,
     PresenceModule,
+    MeetingsModule,
   ],
   controllers: [],
   providers: [],

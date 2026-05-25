@@ -29,7 +29,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
                 const user = await me();
                 setUser(user);
             } catch (error: any) {
-                console.error(error);
+                console.error(error.response);
                 showError(error?.response?.data?.message || "Something went wrong")
             }
 

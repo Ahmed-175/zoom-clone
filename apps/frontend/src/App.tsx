@@ -9,7 +9,6 @@ import { ToastProvider } from "./contexts/toast.context";
 import { AuthProvider } from "./contexts/auth.context";
 // import PublicLayout from "./routes/PublicRoute";
 // import ProtectedLayout from "./routes/ProtectedRoute";
-import CreateMeeting from "./pages/CreateMeeting";
 import { SocketProvider } from "./contexts/socket.context";
 
 
@@ -29,7 +28,6 @@ const App = () => {
 
               <Route path="/home" element={<Home />} />
               <Route path="/meeting/:id" element={<Meeting />} />
-              <Route path="/create-meeting" element={<CreateMeeting />} />
             </Route>
           </Routes>
         </SocketProvider>

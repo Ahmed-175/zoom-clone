@@ -1,117 +1,68 @@
 import { useEffect, useRef, useState } from "react";
 
 export const useLocalMedia = () => {
+  const [onCamera, setOnCamera] = useState(false);
+  const [onAudio, setOnAudio] = useState(false);
+
   const streamRef = useRef<MediaStream | null>(null);
-  const screenRef = useRef<MediaStream | null>(null);
-
-  const videoRef = useRef<HTMLVideoElement | null>(null);
-  const screenVideoRef = useRef<HTMLVideoElement | null>(null);
-
-  const [isCameraOn, setIsCameraOn] = useState(true);
-  const [isMicOn, setIsMicOn] = useState(true);
-  const [isShareScreen, setIsShareScreen] = useState(false);
-
-  const [error, setError] = useState("");
+  const streamElementRef = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
-    initMedia();
-
-    return () => {
-      stopAllTracks();
-    };
-  }, []);
-
-  const initMedia = async () => {
-    try {
-      const mediaStream = await navigator.mediaDevices.getUserMedia({
+    const init = async () => {
+      const stream = await navigator.mediaDevices.getUserMedia({
         video: true,
         audio: true,
       });
 
-      streamRef.current = mediaStream;
+      streamRef.current = stream;
 
-      if (videoRef.current) {
-        videoRef.current.srcObject = mediaStream;
+      if (streamElementRef.current) {
+        streamElementRef.current.srcObject = stream;
       }
 
-      const screenStream = await navigator.mediaDevices.getDisplayMedia({
-        video: true,
+      setOnCamera(true);
+      setOnAudio(true);
+    };
+
+    init();
+
+    return () => {
+      const stream = streamRef.current;
+
+      stream?.getTracks().forEach((t) => {
+        t.stop;
       });
 
-      screenRef.current = screenStream;
-
-      if (screenVideoRef.current) {
-        screenVideoRef.current.srcObject = screenStream;
-      }
-    } catch (err) {
-      console.error(err);
-      setError("Could not access media devices");
-    }
-  };
+      streamRef.current = null;
+    };
+  }, []);
 
   const toggleCamera = () => {
     const stream = streamRef.current;
-    if (!stream) return;
+    const videoTrack = stream?.getVideoTracks()[0];
 
-    const track = stream.getVideoTracks()[0];
-    if (!track) return;
-    track.enabled = !track.enabled;
-    setIsCameraOn(track.enabled);
+    if (!videoTrack) return;
+
+    videoTrack.enabled = !videoTrack.enabled;
+    setOnCamera(videoTrack.enabled);
   };
 
-  const toggleMic = () => {
+  const toggleAudio = () => {
     const stream = streamRef.current;
-    if (!stream) return;
+    const audioTrack = stream?.getAudioTracks()[0];
 
-    const track = stream.getAudioTracks()[0];
-    if (!track) return;
+    if (!audioTrack) return;
 
-    track.enabled = !track.enabled;
-    setIsMicOn(track.enabled);
-  };
-
-  const toggleScreen = async () => {
-    if (screenRef.current) {
-      screenRef.current.getTracks().forEach((t) => t.stop());
-      screenRef.current = null;
-      setIsShareScreen(false);
-      return;
-    }
-
-    try {
-      const screenStream = await navigator.mediaDevices.getDisplayMedia({
-        video: true,
-      });
-
-      screenRef.current = screenStream;
-
-      if (screenVideoRef.current) {
-        screenVideoRef.current.srcObject = screenStream;
-      }
-
-      setIsShareScreen(true);
-    } catch (err) {
-      console.error(err);
-      setError("Screen share failed");
-    }
-  };
-
-  const stopAllTracks = () => {
-    streamRef.current?.getTracks().forEach((t) => t.stop());
-    screenRef.current?.getTracks().forEach((t) => t.stop());
+    audioTrack.enabled = !audioTrack.enabled;
+    setOnAudio(audioTrack.enabled);
   };
 
   return {
-    isCameraOn,
-    isMicOn,
-    isShareScreen,
-    error,
-
-    videoRef,
-    screenVideoRef,
-
+    streamElementRef,
+    streamRef,
+    onAudio,
+    onCamera,
     toggleCamera,
-    toggleMic,
-    toggleScreen,
+    toggleAudio,
   };
 };

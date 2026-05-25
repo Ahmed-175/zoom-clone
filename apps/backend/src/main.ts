@@ -14,6 +14,6 @@ async function bootstrap() {
       transform: true,
     }),
   );
-  await app.listen(8000, "0.0.0.0");
+  await app.listen(8000);
 }
 bootstrap();

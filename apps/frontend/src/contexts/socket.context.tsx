@@ -19,7 +19,7 @@ export const SocketProvider = ({
   const socketRef = useRef<Socket | null>(null);
 
   useEffect(() => {
-    socketRef.current = io("http://192.168.1.2:8000", {
+    socketRef.current = io(import.meta.env.VITE_URL_SOCKET, {
       auth: {
         token: localStorage.getItem("access_token"),
       },
