@@ -7,8 +7,8 @@ import Meeting from "./pages/Meeting";
 
 import { ToastProvider } from "./contexts/toast.context";
 import { AuthProvider } from "./contexts/auth.context";
-// import PublicLayout from "./routes/PublicRoute";
-// import ProtectedLayout from "./routes/ProtectedRoute";
+import PublicLayout from "./routes/PublicRoute";
+import ProtectedLayout from "./routes/ProtectedRoute";
 import { SocketProvider } from "./contexts/socket.context";
 
 
@@ -19,12 +19,12 @@ const App = () => {
         <SocketProvider>
 
           <Routes>
-            <Route >
+            <Route element={<PublicLayout />}>
               <Route path="/" element={<Login />} />
               <Route path="/register" element={<Register />} />
             </Route>
 
-            <Route>
+            <Route element={<ProtectedLayout />}>
 
               <Route path="/home" element={<Home />} />
               <Route path="/meeting/:id" element={<Meeting />} />

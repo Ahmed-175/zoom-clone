@@ -15,7 +15,7 @@ const AuthContext = createContext<IAuthContext | null>(null);
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     const [user, setUser] = useState<IUser | null>(null);
-    const [loading, setLoading] = useState(false);
+    const [loading, setLoading] = useState(true);
     const { showError } = useToast()
 
     const logout = () => {
@@ -31,6 +31,8 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
             } catch (error: any) {
                 console.error(error.response);
                 showError(error?.response?.data?.message || "Something went wrong")
+            } finally {
+                setLoading(false);
             }
 
 

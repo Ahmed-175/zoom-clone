@@ -19,7 +19,7 @@ const Meeting = () => {
       <div className="w-[30%]   p-5 overflow-y-auto h-screen">
 
         {Object.entries(remoteStreams).map(([userId, stream]) => (
-          <VideoPlayer key={userId} stream={stream}  />
+          <VideoPlayer key={userId} stream={stream} />
         ))}
 
       </div>
