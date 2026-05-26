@@ -31,7 +31,6 @@ export class PresenceGateway
   }
   handleConnection(client: Socket) {
     const user = client.data.user;
-    console.log(user);
     if (!user) return;
 
     this.presenceService.addUser(user.sub, client.id);
