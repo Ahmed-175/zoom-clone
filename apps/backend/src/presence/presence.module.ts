@@ -3,9 +3,11 @@ import { PresenceService } from "./presence.service";
 import { PresenceGateway } from "./presence.gateway";
 import { JwtModule } from "@nestjs/jwt";
 import { ConfigModule, ConfigService } from "@nestjs/config";
+import { RedisModule } from "src/redis/redis.module";
 
 @Module({
   imports: [
+    RedisModule,
     JwtModule.registerAsync({
       imports: [ConfigModule],
       inject: [ConfigService],

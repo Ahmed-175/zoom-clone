@@ -29,16 +29,22 @@ export class PresenceGateway
   afterInit(server: Server) {
     server.use(socketAuthMiddleware(this.jwtService));
   }
-  handleConnection(client: Socket) {
+  async handleConnection(client: Socket) {
     const user = client.data.user;
     if (!user) return;
 
-    this.presenceService.addUser(user.sub, client.id);
-
-    this.server.emit("online-users", this.presenceService.getOnlineUsers());
+    await this.presenceService.addUser(user.sub, client.id);
+    console.log(this.presenceService.getOnlineUsers());
+    this.server.emit(
+      "online-users",
+      await this.presenceService.getOnlineUsers(),
+    );
   }
-  handleDisconnect(client: Socket) {
-    this.presenceService.removeUser(client.id);
-    this.server.emit("online-users", this.presenceService.getOnlineUsers());
+  async handleDisconnect(client: Socket) {
+    await this.presenceService.removeUser(client.id);
+    this.server.emit(
+      "online-users",
+      await this.presenceService.getOnlineUsers(),
+    );
   }
 }

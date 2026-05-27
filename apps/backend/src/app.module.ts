@@ -8,6 +8,7 @@ import { PassportModule } from "@nestjs/passport";
 import { ChatModule } from "./chat/chat.module";
 import { PresenceModule } from "./presence/presence.module";
 import { MeetingsModule } from "./meetings/meetings.module";
+import { RedisModule } from './redis/redis.module';
 
 @Module({
   imports: [
@@ -24,6 +25,7 @@ import { MeetingsModule } from "./meetings/meetings.module";
     ChatModule,
     PresenceModule,
     MeetingsModule,
+    RedisModule,
   ],
   controllers: [],
   providers: [],

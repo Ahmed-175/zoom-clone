@@ -1,8 +1,6 @@
-import React from 'react'
 import { FiCamera, FiCameraOff } from 'react-icons/fi'
 import { LuMic, LuMicOff } from 'react-icons/lu'
 import { MdTv, MdTvOff } from 'react-icons/md'
-
 
 
 interface IMeetingControllerProp {
@@ -41,21 +39,21 @@ const MeetingController = ({ onAudio, onCamera, toggleAudio, toggleCamera }: IMe
         }
     ]
     return (
-        <div className=" absolute bottom-5 left-100 right-100 flex justify-center gap-10 ">
+        <div className=" absolute bottom-5 left-100 right-100 flex justify-center gap-3 ">
             {
                 actions.map((a, i) => (
                     <div
                         onClick={a.action}
                         key={i}
-                        className={`text-center cursor-pointer w-20 duration-300 p-2 text-white
-                        rounded-lg   ${a.on ? "bg-black " : "bg-red-600  "} `}>
+                        className={`text-center cursor-pointer  duration-300 p-3  text-white
+                        rounded-full   ${a.on ? "bg-black " : "bg-red-600  "} `}>
                         {a.on ? (
                             <a.onIcon className='text-2xl w-full' />
                         ) : (
                             <a.offIcon className='text-2xl w-full' />
                         )}
 
-                        <div className='w-full '>{a.lebal}</div>
+                        {/* <div className='w-full '>{a.lebal}</div> */}
                     </div>
                 ))
             }

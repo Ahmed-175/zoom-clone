@@ -1,31 +1,30 @@
-import { Injectable } from "@nestjs/common";
+import { Inject, Injectable } from "@nestjs/common";
+import Redis from "ioredis";
 
 @Injectable()
 export class PresenceService {
-  private onlineUsers = new Map<string, Set<string>>();
+  constructor(
+    @Inject("REDIS_CLIENT")
+    private redis: Redis,
+  ) {}
 
-  addUser(userId: string, socketId: string) {
-    if (!this.onlineUsers.has(userId)) {
-      this.onlineUsers.set(userId, new Set());
-    }
-    this.onlineUsers.get(userId)?.add(socketId);
+  async addUser(userId: string, socketId: string) {
+    await this.redis.set(`socket:${socketId}`, userId);
+
+    await this.redis.sadd("online-users", userId);
   }
 
-  removeUser(socketId: string) {
-    for (const [userId, sockets] of this.onlineUsers.entries()) {
-      if (sockets.has(socketId)) {
-        sockets.delete(socketId);
+  async removeUser(socketId: string) {
+    const userId = await this.redis.get(`socket:${socketId}`);
 
-        if (sockets.size === 0) {
-          this.onlineUsers.delete(userId);
-        }
-
-        break;
-      }
+    if (userId) {
+      await this.redis.srem("online-users", userId);
     }
+
+    await this.redis.del(`socket:${socketId}`);
   }
 
-  getOnlineUsers() {
-    return Array.from(this.onlineUsers.keys());
+  async getOnlineUsers() {
+    return this.redis.smembers("online-users");
   }
 }

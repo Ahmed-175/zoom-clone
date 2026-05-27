@@ -1,11 +1,22 @@
 import { useEffect, useRef, useState } from "react";
 import useSocket from "./useSocket";
 
+interface IUserMeeting {
+  user: {
+    email: string;
+    username: string;
+    id: string;
+    picture: string;
+  };
+  stream: MediaStream | null;
+  screen: MediaStream | null;
+}
+
 const usePeerRTC = (stream: MediaStream, meetingId: string) => {
   const { socket } = useSocket();
-
+  const [stage, setStage] = useState<IUserMeeting | null>(null);
   const [remoteStreams, setRemoteStreams] = useState<
-    Record<string, MediaStream>
+    Record<string, IUserMeeting>
   >({});
 
   const peersRef = useRef<Map<string, RTCPeerConnection>>(new Map());
@@ -33,7 +44,7 @@ const usePeerRTC = (stream: MediaStream, meetingId: string) => {
 
       setRemoteStreams((prev) => ({
         ...prev,
-        [socketId]: remoteStream,
+        [socketId]: remoteStream as any,
       }));
     };
 

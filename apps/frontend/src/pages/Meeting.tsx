@@ -16,10 +16,10 @@ const Meeting = () => {
         <video ref={streamElementRef} autoPlay muted playsInline className="w-full h-full object-cover rounded-xl " />
       </div>
 
-      <div className="w-[30%]   p-5 overflow-y-auto h-screen">
+      <div className="w-[30%] space-y-7 p-5 overflow-y-auto h-screen">
 
         {Object.entries(remoteStreams).map(([userId, stream]) => (
-          <VideoPlayer key={userId} stream={stream} />
+          <VideoPlayer key={userId} stream={stream.stream as any} />
         ))}
 
       </div>

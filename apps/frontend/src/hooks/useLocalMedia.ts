@@ -57,6 +57,7 @@ export const useLocalMedia = () => {
     setOnAudio(audioTrack.enabled);
   };
 
+  console.log(streamRef.current?.getTracks());
   return {
     streamElementRef,
     streamRef,
